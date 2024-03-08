@@ -1,57 +1,64 @@
 package org.example;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.context.annotation.Bean;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.core.authority.AuthorityUtils;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.boot.CommandLineRunner;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class AccessControlServiceApplication {
+public class AccessControlServiceApplication
+//        implements CommandLineRunner
+{
+//    @Autowired
+//    private UserService userService; // Подразумевается, что у вас есть сервис UserService, который может сохранять пользователей
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+
+    @Value("${admin.username}")
+    private String adminUsername;
+
+    @Value("${admin.password}")
+    private String adminPassword;
+
+    @Value("${admin.role}")
+    private String adminRole;
 
     public static void main(String[] args) {
         SpringApplication.run(AccessControlServiceApplication.class, args);
     }
 
-//    @EnableWebSecurity
-//    @EnableGlobalMethodSecurity(prePostEnabled = true)
-//    public static class SecurityConfig extends WebSecurityConfigurerAdapter {
+//    @Override
+//    public void run(String... args) throws Exception {
+//        // Хэширование пароля
+//        String hashedPassword = passwordEncoder.encode(adminPassword);
 //
-//        @Override
-//        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//            auth.inMemoryAuthentication()
-//                    .withUser("admin").password("adminpass").roles("ADMIN")
-//                    .and()
-//                    .withUser("posts").password("postspass").roles("POSTS")
-//                    .and()
-//                    .withUser("users").password("userspass").roles("USERS")
-//                    .and()
-//                    .withUser("albums").password("albumspass").roles("ALBUMS");
-//        }
+//        // Создание объекта User для Spring Security
+//        org.springframework.security.core.userdetails.User user =
+//                new org.springframework.security.core.userdetails.User(adminUsername, hashedPassword,
+//                        AuthorityUtils.createAuthorityList(adminRole));
 //
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http.authorizeRequests()
-//                    .antMatchers("/api/posts/**").hasAnyRole("ADMIN", "POSTS")
-//                    .antMatchers("/api/users/**").hasAnyRole("ADMIN", "USERS")
-//                    .antMatchers("/api/albums/**").hasAnyRole("ADMIN", "ALBUMS")
-//                    .and().httpBasic()
-//                    .and().csrf().disable();
-//        }
+//        // Сохранение пользователя
+////        userService.saveUser(user);
+//    }
 //
-//        @Bean
-//        public PasswordEncoder getPasswordEncoder() {
-//            return NoOpPasswordEncoder.getInstance();
-//        }
+//
+//    @Bean
+//    public RestTemplate restTemplate() {
+//        return new RestTemplate();
+//    }
+//
+//    @Bean
+//    public PasswordEncoder applicationPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
 //    }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 }
 

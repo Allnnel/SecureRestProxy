@@ -27,13 +27,10 @@ public class User {
     private String website;
     @Embedded
     private Company company;
-    @Column(name = "password")
-    private String password;
-    @Column(name = "role")
-    private String role;
+
     public User() {
     }
-    public User(String name, String username, String email, Address address, String phone, String website, Company company, String password, String role) {
+    public User(String name, String username, String email, Address address, String phone, String website, Company company) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -41,8 +38,6 @@ public class User {
         this.phone = phone;
         this.website = website;
         this.company = company;
-        this.password = password;
-        this.role = role;
     }
 
     @Getter

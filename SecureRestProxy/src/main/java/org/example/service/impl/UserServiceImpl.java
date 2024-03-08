@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws CustomException {
-        isValidRole(user.getRole());
-        if (repository.findByUsernameAndRole(user.getUsername(), user.getRole()).isPresent()) {
+//        isValidRole(user.getRole());
+        if (repository.findByUsername(user.getUsername()).isPresent()) {
             throw new CustomException("USER_ALREADY_EXISTS", 2);
         }
         repository.save(user);
@@ -52,5 +52,13 @@ public class UserServiceImpl implements UserService {
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new CustomException("ROLE_NOT_FOUND", 3);
         }
+    }
+    @Override
+    public User findByUsername(String username) throws CustomException {
+        Optional<User> user = repository.findByUsername(username);
+        if (!user.isPresent()) {
+            throw new CustomException("USER_NOT_FOUND", 1);
+        }
+        return user.get();
     }
 }
