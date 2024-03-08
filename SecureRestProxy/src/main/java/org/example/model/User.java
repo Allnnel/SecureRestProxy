@@ -80,25 +80,47 @@ public class User {
         @Column(name = "zipcode")
         private String zipcode;
 
-        @Column(name = "geo_lat")
-        private String geoLat;
 
-        @Column(name = "geo_lng")
-        private String geoLng;
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "geo")
+        private Geo geo;
+
 
         public Address() {
         }
 
-        public Address(String street, String suite, String city, String zipcode, String geoLat, String geoLng) {
+        public Address(String street, String suite, String city, String zipcode) {
             this.street = street;
             this.suite = suite;
             this.city = city;
             this.zipcode = zipcode;
-            this.geoLat = geoLat;
-            this.geoLng = geoLng;
+        }
+
+        @Entity
+        @Getter
+        @Setter
+        @Table(name = "geos")
+        static class Geo {
+            @Id
+            @GeneratedValue(strategy = GenerationType.IDENTITY)
+            private Long id;
+
+            @Column(name = "lat")
+            private String lat;
+
+            @Column(name = "lng")
+            private String lng;
+
+            public Geo() {
+            }
+
+            public Geo(String lat, String lng) {
+                this.lat = lat;
+                this.lng = lng;
+            }
+
         }
     }
-
 
     @Entity
     @Getter

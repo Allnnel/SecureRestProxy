@@ -13,14 +13,20 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    Long userId;
+    private User user;
 
     @Column(name = "title", nullable = false)
-    String title;
+    private String title;
     @Column(name = "body", nullable = false)
-    String body;
+    private String body;
+
+    public Post(User user, String title, String body) {
+        this.user = user;
+        this.title = title;
+        this.body = body;
+    }
 }

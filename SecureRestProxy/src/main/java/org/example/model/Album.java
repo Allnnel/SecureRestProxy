@@ -12,12 +12,17 @@ import javax.persistence.*;
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    Long userId;
+    private User user;
 
     @Column(name = "title", nullable = false)
-    String title;
+    private String title;
+
+    public Album(User user, String title) {
+        this.user = user;
+        this.title = title;
+    }
 }

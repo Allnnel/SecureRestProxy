@@ -12,7 +12,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class ProxyController {
     private static final RestTemplate restTemplate = new RestTemplate();
     private final UserService userService;
@@ -22,7 +22,7 @@ public class ProxyController {
         this.userService = userService;
     }
 
-    @GetMapping("/api/users")
+    @GetMapping("users")
     public ResponseEntity<ResponseMessage> getUsers() throws CustomException {
         try {
             String url = BASE_URL + "users/";

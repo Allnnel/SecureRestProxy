@@ -42,12 +42,12 @@
             <version>${spring-boot.version}</version>
         </dependency>
 
-        <!--  Spring security Starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
+<!--        &lt;!&ndash;  Spring security Starter &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--            <version>${spring-boot.version}</version>-->
+<!--        </dependency>-->
 
 
         <!-- JAXB API -->
