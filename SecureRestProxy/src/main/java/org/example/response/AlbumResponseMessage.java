@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.model.Album;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlbumResponseMessage extends ResponseMessage{
     @JsonProperty("albums")
     private Album[] albums;

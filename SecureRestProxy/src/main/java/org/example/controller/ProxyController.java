@@ -19,8 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 
-import static java.lang.System.out;
-
 @RestController
 @RequestMapping("/api")
 public class ProxyController {
@@ -165,6 +163,7 @@ public class ProxyController {
     }
 
     // ----------------- WEB SOCKET ---------------------
+
     @MessageMapping("/echo")
     @SendTo("/topic/messages")
     public String echoMessage(String message) {

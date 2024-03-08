@@ -45,14 +45,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void isValidRole(String role) throws CustomException {
-        try {
-            RoleEnum.valueOf(role);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            throw new CustomException("ROLE_NOT_FOUND", 3);
-        }
-    }
-    @Override
     public User findByUsername(String username) throws CustomException {
         Optional<User> user = repository.findByUsername(username);
         if (!user.isPresent()) {

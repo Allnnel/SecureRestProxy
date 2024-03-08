@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.model.User;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponseMessage extends ResponseMessage{
     @JsonProperty("users")
     private User[] users;

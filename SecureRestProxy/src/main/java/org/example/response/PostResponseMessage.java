@@ -7,9 +7,10 @@ import lombok.Setter;
 import org.example.model.Post;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostResponseMessage extends ResponseMessage{
     @JsonProperty("posts")
     private Post[] posts;
