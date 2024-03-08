@@ -2,9 +2,6 @@ package org.example.service;
 
 import org.example.exception.CustomException;
 import org.example.model.Security;
-import org.example.repository.SecurityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

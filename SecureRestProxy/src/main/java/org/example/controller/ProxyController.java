@@ -137,7 +137,6 @@ public class ProxyController {
         }
     }
 
-
     @DeleteMapping("posts")
     public ResponseEntity<ResponseMessage> deletePost(@RequestParam Long id) throws CustomException {
         try {

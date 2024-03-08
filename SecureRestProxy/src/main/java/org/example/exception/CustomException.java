@@ -1,5 +1,10 @@
 package org.example.exception;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CustomException extends Exception {
     private final int errorCode;
     private final String message;
@@ -10,13 +15,5 @@ public class CustomException extends Exception {
         this.message = message;
     }
 
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
 }
 
