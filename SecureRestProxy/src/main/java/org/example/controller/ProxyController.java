@@ -42,7 +42,8 @@ public class ProxyController {
             String url = BASE_URL + "users/";
             ResponseEntity<User[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, User[].class );
             User[] users = responseEntity.getBody();
-            ResponseMessage response = new UserResponseMessage("Success", null, "200", users, null);
+            ResponseMessage response =
+                    new UserResponseMessage("Success", null, "200", users, null);
             return ResponseEntity.ok().body(response);
         } catch (HttpStatusCodeException e) {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -54,7 +55,8 @@ public class ProxyController {
             String url = BASE_URL + "posts/";
             ResponseEntity<Post[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, Post[].class );
             Post[] posts = responseEntity.getBody();
-            ResponseMessage response = new PostResponseMessage("Success", null, "200", posts, null);
+            ResponseMessage response =
+                    new PostResponseMessage("Success", null, "200", posts, null);
             return ResponseEntity.ok().body(response);
         } catch (HttpStatusCodeException e) {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -66,7 +68,8 @@ public class ProxyController {
             String url = BASE_URL + "albums/";
             ResponseEntity<Album[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, Album[].class );
             Album[] albums = responseEntity.getBody();
-            ResponseMessage response = new AlbumResponseMessage("Success", null, "200", albums, null);
+            ResponseMessage response =
+                    new AlbumResponseMessage("Success", null, "200", albums, null);
             return ResponseEntity.ok().body(response);
         } catch (HttpStatusCodeException e) {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -82,7 +85,8 @@ public class ProxyController {
             ResponseEntity<User> responseEntity = restTemplate.postForEntity(url, user, User.class);
             User createdUser = responseEntity.getBody();
             userService.save(createdUser);
-            ResponseMessage response = new UserResponseMessage("Success", null, "200", new User[]{createdUser}, null);
+            ResponseMessage response =
+                    new UserResponseMessage("Success", null, "200", new User[]{createdUser}, null);
             return ResponseEntity.ok().body(response);
         } catch (HttpStatusCodeException e) {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -96,7 +100,8 @@ public class ProxyController {
             ResponseEntity<Post> responseEntity = restTemplate.postForEntity(url, post, Post.class);
             Post createdPost = responseEntity.getBody();
             postService.save(createdPost);
-            ResponseMessage response = new PostResponseMessage("Success", null, "200", new Post[]{createdPost}, null);
+            ResponseMessage response =
+                    new PostResponseMessage("Success", null, "200", new Post[]{createdPost}, null);
             return ResponseEntity.ok().body(response);
         } catch (HttpStatusCodeException e) {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -109,12 +114,65 @@ public class ProxyController {
             ResponseEntity<Album> responseEntity = restTemplate.postForEntity(url, album, Album.class);
             Album createdAlbum = responseEntity.getBody();
             albumService.save(createdAlbum);
-            ResponseMessage response = new AlbumResponseMessage("Success", null, "200", new Album[]{createdAlbum}, null);
+            ResponseMessage response =
+                    new AlbumResponseMessage("Success", null, "200", new Album[]{createdAlbum}, null);
             return ResponseEntity.ok().body(response);
         } catch (HttpStatusCodeException e) {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
         }
     }
+
+    // ----------------- DELETE ---------------------
+
+//    @DeleteMapping("users/{username}")
+//    public ResponseEntity<ResponseMessage> deleteByUsername(@PathVariable("username") String username) throws CustomException {
+//        try {
+//            String url = BASE_URL + "users/" + username;
+//            restTemplate.delete(url);
+//            userService.deleteByUsername(username);
+//            return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
+//        } catch (HttpStatusCodeException e) {
+//            throw new CustomException(e.getMessage(), e.getRawStatusCode());
+//        }
+//    }
+
+    @DeleteMapping("users/{id}")
+    public ResponseEntity<ResponseMessage> deleteById(@PathVariable("id") Long id) throws CustomException {
+        try {
+            String url = BASE_URL + "users/" + id;
+            restTemplate.delete(url);
+            userService.deleteById(id);
+            return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
+        } catch (HttpStatusCodeException e) {
+            throw new CustomException(e.getMessage(), e.getRawStatusCode());
+        }
+    }
+
+
+    @DeleteMapping("posts/{id}")
+    public ResponseEntity<ResponseMessage> deletePost(@PathVariable("id") Long id) throws CustomException {
+        try {
+            String url = BASE_URL + "posts/" + id;
+            restTemplate.delete(url);
+            postService.deleteById(id);
+            return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
+        } catch (HttpStatusCodeException e) {
+            throw new CustomException(e.getMessage(), e.getRawStatusCode());
+        }
+    }
+
+    @DeleteMapping("albums/{id}")
+    public ResponseEntity<ResponseMessage> deleteAlbum(@PathVariable("id") Long id) throws CustomException {
+        try {
+            String url = BASE_URL + "albums/" + id;
+            restTemplate.delete(url);
+            albumService.deleteById(id);
+            return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
+        } catch (HttpStatusCodeException e) {
+            throw new CustomException(e.getMessage(), e.getRawStatusCode());
+        }
+    }
+
 
 
     // ----------------- WEB SOCKET ---------------------

@@ -20,6 +20,8 @@ public interface UserService {
     User findById(Long id) throws CustomException;
     void save(User user) throws CustomException;
     void isValidRole(String role) throws CustomException;
-
     User findByUsername(String username) throws CustomException;
+
+    void deleteByUsername(String username) throws CustomException;
+    public void deleteById(Long id) throws CustomException;
 }

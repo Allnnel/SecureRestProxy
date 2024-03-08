@@ -1,6 +1,7 @@
 package org.example.service.impl;
 
 import org.example.exception.CustomException;
+import org.example.model.Post;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.example.service.UserService;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) throws CustomException {
         Optional<User> userOptional = repository.findById(id);
-        if (!userOptional.isPresent()) {
+        if (!userOptional.isPresent())  {
             throw new CustomException("USER_NOT_FOUND", 1);
         }
         return userOptional.get();
@@ -38,7 +39,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws CustomException {
-//        isValidRole(user.getRole());
         if (repository.findByUsername(user.getUsername()).isPresent()) {
             throw new CustomException("USER_ALREADY_EXISTS", 2);
         }
@@ -60,5 +60,16 @@ public class UserServiceImpl implements UserService {
             throw new CustomException("USER_NOT_FOUND", 1);
         }
         return user.get();
+    }
+
+    @Override
+    public void deleteByUsername(String username) throws CustomException {
+        findByUsername(username);
+        repository.deleteByUsername(username);
+    }
+    @Override
+    public void deleteById(Long id) throws CustomException {
+        findById(id);
+        repository.deleteById(id);
     }
 }
