@@ -10,23 +10,23 @@ import javax.persistence.*;
 @Setter
 @Table(name = "posts")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "body", nullable = false)
     private String body;
 
-    public Post(User user, String title, String body) {
-        this.user = user;
+    public Post(Long userId, String title, String body) {
+        this.userId = userId;
         this.title = title;
         this.body = body;
     }
+    public Post() {
+    }
+
 }

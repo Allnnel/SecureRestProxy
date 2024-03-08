@@ -14,15 +14,17 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "title", nullable = false)
     private String title;
 
-    public Album(User user, String title) {
-        this.user = user;
+    public Album(Long userId, String title) {
+        this.userId = userId;
         this.title = title;
+    }
+
+    public Album() {
     }
 }

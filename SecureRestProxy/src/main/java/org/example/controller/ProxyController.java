@@ -1,7 +1,11 @@
 package org.example.controller;
 
+import org.example.model.Album;
+import org.example.model.Post;
 import org.example.model.User;
 import org.example.exception.CustomException;
+import org.example.response.AlbumResponseMessage;
+import org.example.response.PostResponseMessage;
 import org.example.response.ResponseMessage;
 import org.example.response.UserResponseMessage;
 import org.example.service.UserService;
@@ -35,29 +39,30 @@ public class ProxyController {
         }
     }
 
-//    @PostMapping("/users")
-//    public ResponseEntity<ResponseMessage> postsUsers(@RequestParam String username,
-//                                                      @RequestParam String password,
-//                                                      @RequestParam String role) throws CustomException {
-//        try {
-//            User user = new User(username, password, role);
-//            String url = BASE_URL + "/users";
-//            ResponseEntity<Void> responseEntity = restTemplate.postForEntity(url, user, Void.class);
-//            ResponseMessage response = new ResponseMessage("Success", null, "200");
-//            return ResponseEntity.ok().body(response);
-//        } catch (HttpStatusCodeException e) {
-//            throw new CustomException(e.getMessage(), e.getRawStatusCode());
-//        }
-//    }
+    @GetMapping("posts")
+    public ResponseEntity<ResponseMessage> getPosts() throws CustomException {
+        try {
+            String url = BASE_URL + "posts/";
+            ResponseEntity<Post[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, Post[].class );
+            Post[] posts = responseEntity.getBody();
+            ResponseMessage response = new PostResponseMessage("Success", null, "200", posts, null);
+            return ResponseEntity.ok().body(response);
+        } catch (HttpStatusCodeException e) {
+            throw new CustomException(e.getMessage(), e.getRawStatusCode());
+        }
+    }
 
-//    @PostMapping("/users/**")
-//    public ResponseEntity<Object> proxyPostUsers(@RequestBody User requestBody) {
-//        String url = BASE_URL + "/users/" + extractPathVariable();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<Object> requestEntity = new HttpEntity<>(requestBody, headers);
-//        return restTemplate.postForEntity(url, requestEntity, Object.class);
-//    }
-
+    @GetMapping("albums")
+    public ResponseEntity<ResponseMessage> getAlbums() throws CustomException {
+        try {
+            String url = BASE_URL + "albums/";
+            ResponseEntity<Album[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, Album[].class );
+            Album[] albums = responseEntity.getBody();
+            ResponseMessage response = new AlbumResponseMessage("Success", null, "200", albums, null);
+            return ResponseEntity.ok().body(response);
+        } catch (HttpStatusCodeException e) {
+            throw new CustomException(e.getMessage(), e.getRawStatusCode());
+        }
+    }
 
 }
