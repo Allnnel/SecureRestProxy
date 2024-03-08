@@ -42,6 +42,14 @@
             <version>${spring-boot.version}</version>
         </dependency>
 
+        <!--  Spring security Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+
         <!-- JAXB API -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -55,6 +63,15 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+
+        <!-- lombok get set -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version> <!-- Версия может быть актуализирована -->
+            <scope>provided</scope>
+        </dependency>
+
 
     </dependencies>
 

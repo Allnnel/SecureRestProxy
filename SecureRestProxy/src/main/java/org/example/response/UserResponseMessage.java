@@ -9,22 +9,22 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponseMessage extends ResponseMessage{
     @JsonProperty("users")
-    private List<User> userList;
+    private User[] userList;
 
     @JsonProperty("user")
     private User user;
 
-    public UserResponseMessage(String status, String message, String code, List<User> userList, User user) {
+    public UserResponseMessage(String status, String message, String code, User[] userList, User user) {
         super(status, message, code);
         this.userList = userList;
         this.user = user;
     }
 
-    public List<User> getUserList() {
+    public User[] getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(User[] userList) {
         this.userList = userList;
     }
 

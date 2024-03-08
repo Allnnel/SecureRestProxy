@@ -21,20 +21,36 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() throws CustomException{
         List<User> userList = repository.findAll();
-//        if (userList.isEmpty()) {
-//            throw new CustomException("USER_NOT_FOUND", 1);
-//        }
+        if (userList.isEmpty()) {
+            throw new CustomException("USER_NOT_FOUND", 1);
+        }
         return userList;
     }
 
     @Override
     public User findById(Long id) throws CustomException {
         Optional<User> userOptional = repository.findById(id);
-//        if (!userOptional.isPresent()) {
-//            throw new CustomException("USER_NOT_FOUND", 1);
-//        }
+        if (!userOptional.isPresent()) {
+            throw new CustomException("USER_NOT_FOUND", 1);
+        }
         return userOptional.get();
     }
 
+    @Override
+    public void save(User user) throws CustomException {
+        isValidRole(user.getRole());
+        if (repository.findByUsernameAndRole(user.getUsername(), user.getRole()).isPresent()) {
+            throw new CustomException("USER_ALREADY_EXISTS", 2);
+        }
+        repository.save(user);
+    }
 
+    @Override
+    public void isValidRole(String role) throws CustomException {
+        try {
+            RoleEnum.valueOf(role);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new CustomException("ROLE_NOT_FOUND", 3);
+        }
+    }
 }

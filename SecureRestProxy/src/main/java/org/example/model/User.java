@@ -1,16 +1,41 @@
 package org.example.model;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "website")
+    private String website;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -21,42 +46,85 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String role) {
-        this.id = id;
+    public User(String name, String username, String email, Address address, String phone, String website, Company company, String password, String role) {
+        this.name = name;
         this.username = username;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.website = website;
+        this.company = company;
         this.password = password;
         this.role = role;
     }
 
-    public Long getId() {
-        return id;
+
+    @Entity
+    @Getter
+    @Setter
+    @Table(name = "addresses")
+    static class Address {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @Column(name = "street")
+        private String street;
+
+        @Column(name = "suite")
+        private String suite;
+
+        @Column(name = "city")
+        private String city;
+
+        @Column(name = "zipcode")
+        private String zipcode;
+
+        @Column(name = "geo_lat")
+        private String geoLat;
+
+        @Column(name = "geo_lng")
+        private String geoLng;
+
+        public Address() {
+        }
+
+        public Address(String street, String suite, String city, String zipcode, String geoLat, String geoLng) {
+            this.street = street;
+            this.suite = suite;
+            this.city = city;
+            this.zipcode = zipcode;
+            this.geoLat = geoLat;
+            this.geoLng = geoLng;
+        }
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getUsername() {
-        return username;
-    }
+    @Entity
+    @Getter
+    @Setter
+    @Table(name = "companies")
+    static class Company {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        @Column(name = "name")
+        private String name;
 
-    public String getPassword() {
-        return password;
-    }
+        @Column(name = "catch_phrase")
+        private String catchPhrase;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        @Column(name = "bs")
+        private String bs;
 
-    public String getRole() {
-        return role;
-    }
+        public Company() {
+        }
 
-    public void setRole(String role) {
-        this.role = role;
+        public Company(String name, String catchPhrase, String bs) {
+            this.name = name;
+            this.catchPhrase = catchPhrase;
+            this.bs = bs;
+        }
     }
 }
