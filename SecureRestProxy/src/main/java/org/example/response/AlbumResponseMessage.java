@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.model.Album;
-import org.example.model.User;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter

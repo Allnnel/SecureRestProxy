@@ -1,7 +1,6 @@
 package org.example.service.impl;
 
 import org.example.exception.CustomException;
-import org.example.model.Post;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.example.service.UserService;

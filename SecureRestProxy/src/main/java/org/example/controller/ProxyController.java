@@ -19,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 
+import static java.lang.System.out;
+
 @RestController
 @RequestMapping("/api")
 public class ProxyController {
@@ -27,6 +29,7 @@ public class ProxyController {
     private final PostService postService;
     private final AlbumService albumService;
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
+
     @Autowired
     public ProxyController(UserService userService,
                            PostService postService,
@@ -124,20 +127,8 @@ public class ProxyController {
 
     // ----------------- DELETE ---------------------
 
-//    @DeleteMapping("users/{username}")
-//    public ResponseEntity<ResponseMessage> deleteByUsername(@PathVariable("username") String username) throws CustomException {
-//        try {
-//            String url = BASE_URL + "users/" + username;
-//            restTemplate.delete(url);
-//            userService.deleteByUsername(username);
-//            return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
-//        } catch (HttpStatusCodeException e) {
-//            throw new CustomException(e.getMessage(), e.getRawStatusCode());
-//        }
-//    }
-
-    @DeleteMapping("users/{id}")
-    public ResponseEntity<ResponseMessage> deleteById(@PathVariable("id") Long id) throws CustomException {
+    @DeleteMapping("users")
+    public ResponseEntity<ResponseMessage> deleteById(@RequestParam Long id) throws CustomException {
         try {
             String url = BASE_URL + "users/" + id;
             restTemplate.delete(url);
@@ -149,8 +140,8 @@ public class ProxyController {
     }
 
 
-    @DeleteMapping("posts/{id}")
-    public ResponseEntity<ResponseMessage> deletePost(@PathVariable("id") Long id) throws CustomException {
+    @DeleteMapping("posts")
+    public ResponseEntity<ResponseMessage> deletePost(@RequestParam Long id) throws CustomException {
         try {
             String url = BASE_URL + "posts/" + id;
             restTemplate.delete(url);
@@ -161,8 +152,8 @@ public class ProxyController {
         }
     }
 
-    @DeleteMapping("albums/{id}")
-    public ResponseEntity<ResponseMessage> deleteAlbum(@PathVariable("id") Long id) throws CustomException {
+    @DeleteMapping("albums")
+    public ResponseEntity<ResponseMessage> deleteAlbum(@RequestParam Long id) throws CustomException {
         try {
             String url = BASE_URL + "albums/" + id;
             restTemplate.delete(url);
@@ -172,8 +163,6 @@ public class ProxyController {
             throw new CustomException(e.getMessage(), e.getRawStatusCode());
         }
     }
-
-
 
     // ----------------- WEB SOCKET ---------------------
     @MessageMapping("/echo")
