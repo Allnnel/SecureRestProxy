@@ -13,39 +13,26 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "name", nullable = false)
     private String name;
-
     @Column(name = "username", nullable = false)
     private String username;
-
     @Column(name = "email", nullable = false)
     private String email;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @Embedded
     private Address address;
-
     @Column(name = "phone")
     private String phone;
-
     @Column(name = "website")
     private String website;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @Embedded
     private Company company;
-
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
-
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private String role;
-
     public User() {
     }
-
     public User(String name, String username, String email, Address address, String phone, String website, Company company, String password, String role) {
         this.name = name;
         this.username = username;
@@ -58,37 +45,22 @@ public class User {
         this.role = role;
     }
 
-
-    @Entity
     @Getter
     @Setter
-    @Table(name = "addresses")
+    @Embeddable
     static class Address {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-
         @Column(name = "street")
         private String street;
-
         @Column(name = "suite")
         private String suite;
-
         @Column(name = "city")
         private String city;
-
         @Column(name = "zipcode")
         private String zipcode;
-
-
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "geo")
+        @Embedded
         private Geo geo;
-
-
         public Address() {
         }
-
         public Address(String street, String suite, String city, String zipcode) {
             this.street = street;
             this.suite = suite;
@@ -96,53 +68,35 @@ public class User {
             this.zipcode = zipcode;
         }
 
-        @Entity
         @Getter
         @Setter
-        @Table(name = "geos")
+        @Embeddable
         static class Geo {
-            @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
-            private Long id;
-
             @Column(name = "lat")
             private String lat;
-
             @Column(name = "lng")
             private String lng;
-
             public Geo() {
             }
-
             public Geo(String lat, String lng) {
                 this.lat = lat;
                 this.lng = lng;
             }
-
         }
     }
 
-    @Entity
     @Getter
     @Setter
-    @Table(name = "companies")
+    @Embeddable
     static class Company {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-
-        @Column(name = "name")
+        @Column(name = "company_name")
         private String name;
-
         @Column(name = "catch_phrase")
         private String catchPhrase;
-
         @Column(name = "bs")
         private String bs;
-
         public Company() {
         }
-
         public Company(String name, String catchPhrase, String bs) {
             this.name = name;
             this.catchPhrase = catchPhrase;
