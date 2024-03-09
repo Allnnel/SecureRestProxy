@@ -6,6 +6,7 @@ import org.example.repository.SecurityRepository;
 import org.example.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,14 @@ public class SecurityServiceImpl  implements SecurityService {
         return security.get();
     }
     @Override
+    public Security findByLogin(String login) throws CustomException {
+        Optional<Security> security = repository.findByLogin(login);
+        if (!security.isPresent()) {
+            throw new CustomException("SECURITY_NOT_FOUND", 1);
+        }
+        return security.get();
+    }
+    @Override
     public void save(Security security) throws CustomException {
         isValidRole(security.getRole());
         Optional<Security> securityOptional = repository.findByLoginAndRole(security.getLogin(), security.getRole());
@@ -42,6 +51,7 @@ public class SecurityServiceImpl  implements SecurityService {
             throw new CustomException("SECURITY_ALREADY_EXISTS", 1);
         }
         repository.save(security);
+
     }
 
     public void isValidRole(String role) throws CustomException {

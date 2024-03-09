@@ -17,4 +17,5 @@ public interface SecurityService {
     Security findByLoginAndRole(String login, String role) throws CustomException;
     List<Security> findAll() throws CustomException;
     void delete(String login, String role) throws CustomException;
+    Security findByLogin(String login) throws CustomException;
 }

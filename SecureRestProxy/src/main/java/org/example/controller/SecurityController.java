@@ -30,8 +30,8 @@ public class SecurityController {
     }
 
     @PostMapping("security")
-    public ResponseEntity<ResponseMessage> postSecurity(@RequestBody Security security) throws CustomException  {
-        service.save(security);
+    public ResponseEntity<ResponseMessage> postSecurity(@RequestParam String login, @RequestParam String role, @RequestParam String password) throws CustomException  {
+        service.save(new Security(role, login, password));
         ResponseMessage response =
                 new ResponseMessage("Successes", null, "200");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -10,10 +10,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.List;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -41,16 +42,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .password(passwordEncoder().encode(password))
                     .roles(role);
 
-            List<Security> users = service.findAll();
-            for (Security user : users) {
-                auth.inMemoryAuthentication()
-                        .withUser(user.getLogin())
-                        .password(passwordEncoder().encode(user.getPassword()))
-                        .roles(user.getRole());
-            }
+            auth.userDetailsService(userDetailsService())
+                    .passwordEncoder(passwordEncoder());
+
         } catch (CustomException e) {
-            // Обработка исключения
         }
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return user -> {
+            try {
+                Security userFromDb = service.findByLogin(user);
+                return User.withUsername(userFromDb.getLogin())
+                        .password(passwordEncoder().encode(userFromDb.getPassword()))
+                        .roles(userFromDb.getRole())
+                        .build();
+            } catch (CustomException e) {
+                throw new UsernameNotFoundException(e.getMessage());
+            }
+        };
     }
 
     @Override
@@ -59,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/posts/**").hasAnyRole("POSTS", "ADMIN")
                 .antMatchers("/api/users/**").hasAnyRole("USERS", "ADMIN")
                 .antMatchers("/api/albums/**").hasAnyRole("ALBUMS", "ADMIN")
-                .antMatchers("/api/security/**").hasAnyRole( "ADMIN")
+                .antMatchers("/api/security/**").hasAnyRole("ADMIN")
                 .and()
                 .httpBasic()
                 .and()
