@@ -28,4 +28,6 @@ public class Security {
         this.login = login;
         this.password = password;
     }
+
+
 }

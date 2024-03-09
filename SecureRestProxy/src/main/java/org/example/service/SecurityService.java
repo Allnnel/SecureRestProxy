@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface SecurityService {
     public enum RoleEnum {
-        ROLE_ADMIN,
-        ROLE_POSTS,
-        ROLE_USERS,
-        ROLE_ALBUMS
+        ADMIN,
+        POSTS,
+        USERS,
+        ALBUMS
     }
     void save(Security security) throws CustomException;
     Security findByLoginAndRole(String login, String role) throws CustomException;
