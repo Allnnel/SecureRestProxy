@@ -6,21 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.model.Post;
 
-
-
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostResponseMessage extends ResponseMessage{
-    @JsonProperty("posts")
-    private Post[] posts;
+public class PostResponseMessage extends ResponseMessage {
+  @JsonProperty("posts")
+  private Post[] posts;
 
-    @JsonProperty("post")
-    private Post post;
+  @JsonProperty("post")
+  private Post post;
 
-    public PostResponseMessage(String status, String message, String code, Post[] posts, Post post) {
-        super(status, message, code);
-        this.posts = posts;
-        this.post = post;
-    }
+  public PostResponseMessage(String status, String message, String code, Post[] posts, Post post) {
+    super(status, message, code);
+    this.posts = posts;
+    this.post = post;
+  }
 }

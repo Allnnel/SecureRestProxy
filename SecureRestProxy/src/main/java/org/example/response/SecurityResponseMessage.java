@@ -2,22 +2,25 @@ package org.example.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.model.Security;
 
-import java.util.List;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SecurityResponseMessage extends ResponseMessage{
-    @JsonProperty("securities")
-    private List<Security> securityList;
+public class SecurityResponseMessage extends ResponseMessage {
+  @JsonProperty("securities")
+  private List<Security> securityList;
 
-    @JsonProperty("security")
-    private  Security security;
+  @JsonProperty("security")
+  private Security security;
 
-    public SecurityResponseMessage(String status, String message, String code, List<Security> securityList, Security security) {
-        super(status, message, code);
-    }
+  public SecurityResponseMessage(
+      String status, String message, String code, List<Security> securityList, Security security) {
+    super(status, message, code);
+    this.security = security;
+    this.securityList = securityList;
+  }
 }

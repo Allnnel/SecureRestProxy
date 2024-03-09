@@ -6,20 +6,20 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.model.Album;
 
-
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AlbumResponseMessage extends ResponseMessage{
-    @JsonProperty("albums")
-    private Album[] albums;
+public class AlbumResponseMessage extends ResponseMessage {
+  @JsonProperty("albums")
+  private Album[] albums;
 
-    @JsonProperty("album")
-    private Album album;
+  @JsonProperty("album")
+  private Album album;
 
-    public AlbumResponseMessage(String status, String message, String code, Album[] albums, Album album) {
-        super(status, message, code);
-        this.albums = albums;
-        this.album = album;
-    }
+  public AlbumResponseMessage(
+      String status, String message, String code, Album[] albums, Album album) {
+    super(status, message, code);
+    this.albums = albums;
+    this.album = album;
+  }
 }
