@@ -106,7 +106,7 @@ public class ProxyController {
       userCache.addToCache(user);
       restTemplate.put(url, user);
       ResponseMessage response =
-          new UserResponseMessage("Success", null, "200", new User[] {user}, null);
+          new ResponseMessage("Success", null, "200");
       return ResponseEntity.ok().body(response);
     } catch (HttpStatusCodeException e) {
       throw new CustomException(e.getMessage(), 1);
