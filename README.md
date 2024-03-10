@@ -1,9 +1,10 @@
 # Проект: "SecureRestProxy"
 
 1) [контроллер ProxyController](#контроллер-proxycontroller)
-2) [класс UserCache](#класс-usercache)
-3) [контроллер SecurityController](#контроллер-securitycontroller)
+2) [контроллер SecurityController](#контроллер-securitycontroller) 
+3) [класс UserCache](#класс-usercache)
 4) [Модели данных](#модели-данных)
+5) [Модели данных](#модели-данных)
 
 
 # Контроллер ProxyController
