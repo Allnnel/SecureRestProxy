@@ -473,22 +473,15 @@ Spring Data JPA предоставляет мощный механизм для 
 
 # properties
 
-# Настройки для подключения к базе данных PostgreSQL
-spring.datasource.type=                       # Тип источника данных (например, com.zaxxer.hikari.HikariDataSource)
-spring.datasource.url=                        # URL для подключения к базе данных PostgreSQL
-spring.datasource.hikari.username=           # Имя пользователя базы данных PostgreSQL
-spring.datasource.hikari.password=           # Пароль пользователя базы данных PostgreSQL
-
-# Настройки Hibernate
-spring.jpa.properties.hibernate.hbm2ddl.auto= # Стратегия создания и обновления схемы базы данных
-spring.jpa.properties.hibernate.show_sql=     # Флаг для отображения SQL-запросов в консоли
-
-# Настройки порта сервера
-server.port=                                  # Порт, на котором будет запущен сервер
-
-# Настройки для входа в систему 
-admin.login=                                  # Логин администратора
-admin.password=                               # Пароль администратора
-admin.role=                                   # Роль администратора (например, ADMIN)
-
-
+| Настройка                                       | Описание                                            |
+|-------------------------------------------------|-----------------------------------------------------|
+| spring.datasource.type=                        | Тип источника данных (например, com.zaxxer.hikari.HikariDataSource) |
+| spring.datasource.url=                         | URL для подключения к базе данных PostgreSQL       |
+| spring.datasource.hikari.username=             | Имя пользователя базы данных PostgreSQL            |
+| spring.datasource.hikari.password=             | Пароль пользователя базы данных PostgreSQL         |
+| spring.jpa.properties.hibernate.hbm2ddl.auto=  | Стратегия создания и обновления схемы базы данных |
+| spring.jpa.properties.hibernate.show_sql=       | Флаг для отображения SQL-запросов в консоли        |
+| server.port=                                   | Порт, на котором будет запущен сервер              |
+| admin.login=                                   | Логин пользователя для входа в систему                                |
+| admin.password=                                | Пароль пользователя для входа в систему                             |
+| admin.role=                                    | Роль для входа в систему (например, ADMIN)              |
