@@ -102,15 +102,11 @@ public class ProxyController {
   public ResponseEntity<ResponseMessage> putUsers(@RequestBody User user) throws CustomException {
     try {
       String url = BASE_URL + "users/";
-      HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(MediaType.APPLICATION_JSON);
-      HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
-      ResponseEntity<User> responseEntity =
-          restTemplate.exchange(url, HttpMethod.PUT, requestEntity, User.class);
-      User createdUser = responseEntity.getBody();
-      userService.update(createdUser);
+      userService.update(user);
+      userCache.addToCache(user);
+      restTemplate.put(url, user);
       ResponseMessage response =
-          new UserResponseMessage("Success", null, "200", new User[] {createdUser}, null);
+          new UserResponseMessage("Success", null, "200", new User[] {user}, null);
       return ResponseEntity.ok().body(response);
     } catch (HttpStatusCodeException e) {
       throw new CustomException(e.getMessage(), 1);
