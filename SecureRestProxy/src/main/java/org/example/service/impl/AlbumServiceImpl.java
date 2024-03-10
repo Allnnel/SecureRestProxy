@@ -5,20 +5,25 @@ import org.example.exception.CustomException;
 import org.example.model.Album;
 import org.example.repository.AlbumRepository;
 import org.example.service.AlbumService;
+import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AlbumServiceImpl implements AlbumService {
   private final AlbumRepository repository;
+  private final UserService userService;
 
   @Autowired
-  public AlbumServiceImpl(AlbumRepository repository) {
+  public AlbumServiceImpl(AlbumRepository repository, UserService userService) {
+
     this.repository = repository;
+    this.userService = userService;
   }
 
   @Override
   public void save(Album album) throws CustomException {
+    userService.findById(album.getUserId());
     repository.save(album);
   }
 

@@ -11,10 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface SecurityRepository extends JpaRepository<Security, Long> {
   Optional<Security> findByLoginAndRole(String login, String role);
-
   Optional<Security> findByLogin(String login);
-
   List<Security> findAll();
-
   void deleteByLogin(String login);
 }

@@ -10,6 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PostRepository extends JpaRepository<Post, Long> {
   Optional<Post> findById(long id);
-
   void deleteById(long id);
 }

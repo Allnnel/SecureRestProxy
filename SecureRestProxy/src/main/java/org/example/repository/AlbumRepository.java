@@ -10,6 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AlbumRepository extends JpaRepository<Album, Long> {
   Optional<Album> findById(long id);
-
   void deleteById(long id);
 }

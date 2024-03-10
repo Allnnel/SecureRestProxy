@@ -6,6 +6,7 @@ import org.example.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -67,18 +68,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers("/api/posts/**")
-        .hasAnyRole("POSTS", "ADMIN")
-        .antMatchers("/api/users/**")
-        .hasAnyRole("USERS", "ADMIN")
-        .antMatchers("/api/albums/**")
-        .hasAnyRole("ALBUMS", "ADMIN")
-        .antMatchers("/api/security/**")
-        .hasAnyRole("ADMIN")
-        .and()
-        .httpBasic()
-        .and()
-        .csrf()
-        .disable();
+            .antMatchers(HttpMethod.GET, "/api/posts/**").hasAnyRole("POSTS", "EDITOR", "ADMIN")
+            .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("USERS", "EDITOR", "ADMIN")
+            .antMatchers(HttpMethod.GET, "/api/albums/**").hasAnyRole("ALBUMS", "EDITOR", "ADMIN")
+            .antMatchers(HttpMethod.GET, "/api/security/**").hasAnyRole("SECURITY", "EDITOR", "ADMIN")
+
+            .antMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole("POSTS", "VIEWER", "ADMIN")
+            .antMatchers(HttpMethod.POST, "/api/users/**").hasAnyRole("USERS", "VIEWER", "ADMIN")
+            .antMatchers(HttpMethod.POST, "/api/albums/**").hasAnyRole("ALBUMS", "VIEWER", "ADMIN")
+            .antMatchers(HttpMethod.POST, "/api/security/**").hasAnyRole("SECURITY", "VIEWER", "ADMIN")
+
+            .antMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole("POSTS", "VIEWER", "ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole("USERS", "VIEWER", "ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/api/albums/**").hasAnyRole("ALBUMS", "VIEWER", "ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/api/security/**").hasAnyRole("SECURITY", "VIEWER", "ADMIN")
+
+            .and()
+            .httpBasic()
+            .and()
+            .csrf()
+            .disable();
+
   }
+
+
+
 }

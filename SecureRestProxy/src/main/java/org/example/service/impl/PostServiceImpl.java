@@ -5,20 +5,24 @@ import org.example.exception.CustomException;
 import org.example.model.Post;
 import org.example.repository.PostRepository;
 import org.example.service.PostService;
+import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PostServiceImpl implements PostService {
   private final PostRepository repository;
+  private final UserService userService;
 
   @Autowired
-  public PostServiceImpl(PostRepository repository) {
+  public PostServiceImpl(PostRepository repository, UserService userService) {
     this.repository = repository;
+    this.userService = userService;
   }
 
   @Override
   public void save(Post post) throws CustomException {
+    userService.findById(post.getUserId());
     repository.save(post);
   }
 

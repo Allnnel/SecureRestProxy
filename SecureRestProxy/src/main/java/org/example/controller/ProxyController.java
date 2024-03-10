@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import static java.lang.System.out;
+
 @RestController
 @RequestMapping("/api")
 public class ProxyController {
@@ -89,7 +94,7 @@ public class ProxyController {
           new UserResponseMessage("Success", null, "200", new User[] {createdUser}, null);
       return ResponseEntity.ok().body(response);
     } catch (HttpStatusCodeException e) {
-      throw new CustomException(e.getMessage(), e.getRawStatusCode());
+      throw new CustomException(e.getMessage(), 1);
     }
   }
 

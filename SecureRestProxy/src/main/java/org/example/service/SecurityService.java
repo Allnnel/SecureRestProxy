@@ -9,14 +9,14 @@ public interface SecurityService {
     ADMIN,
     POSTS,
     USERS,
-    ALBUMS
+    ALBUMS,
+    SECURITY,
+    VIEWER,
+    EDITOR
   }
-
   void save(Security security) throws CustomException;
-
   List<Security> findAll() throws CustomException;
-
   void delete(String login) throws CustomException;
-
   Security findByLogin(String login) throws CustomException;
+  void isValidRole(String role) throws CustomException;
 }
