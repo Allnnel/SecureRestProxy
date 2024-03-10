@@ -1,26 +1,44 @@
 # Проект: "SecureRestProxy"
 
-1) [контроллер ProxyController](#контроллер-proxycontroller)
-2) [контроллер SecurityController](#контроллер-securitycontroller) 
-3) [класс UserCache](#класс-usercache)
-4) [Модели данных](#модели-данных)
-5) [Конфигурация безопасности SecurityConfig](#конфигурация-безопасности-securityconfig)
-6) [Обработчик глобальных исключений](#обработчик-глобальных-исключений)
-7) [Репозитории Spring Data JPA](#репозитории-spring-data-jpa)
-8) [Классы для JSON сериализации](#классы-для-json-сериализации)
-9) [Сервисы](#сервисы)
-10) [Сервис AlbumService](#интерфейс-albumservice)
-11) [Сервис AuditLogService](#интерфейс-AuditLogService)
-12) [Сервис PostService](#интерфейс-PostService)
-13) [Сервис SecurityService](#интерфейс-SecurityService)
-14) [Сервис UserService](#интерфейс-UserService)
-15) [Фаил application.properties](#properties)
-16) [Сборка Maven](#maven)
+1) [Технологии](#технологии)
+2) [Функциональность](#функциональность)
+3) [контроллер ProxyController](#контроллер-proxycontroller)
+4) [контроллер SecurityController](#контроллер-securitycontroller) 
+5) [класс UserCache](#класс-usercache)
+6) [Модели данных](#модели-данных)
+7) [Конфигурация безопасности SecurityConfig](#конфигурация-безопасности-securityconfig)
+8) [Обработчик глобальных исключений](#обработчик-глобальных-исключений)
+9) [Репозитории Spring Data JPA](#репозитории-spring-data-jpa)
+10) [Классы для JSON сериализации](#классы-для-json-сериализации)
+11) [Сервисы](#сервисы)
+12) [Сервис AlbumService](#интерфейс-albumservice)
+13) [Сервис AuditLogService](#интерфейс-AuditLogService)
+14) [Сервис PostService](#интерфейс-PostService)
+15) [Сервис SecurityService](#интерфейс-SecurityService)
+16) [Сервис UserService](#интерфейс-UserService)
+17) [Фаил application.properties](#properties)
+18) [Сборка Maven](#maven)
 
 
+# Технологии
+- Spring Boot: Фреймворк для создания и настройки приложений на основе Spring.
+- Spring Security: Используется для обеспечения безопасности приложения, включая аутентификацию и авторизацию.
+- Spring Data JPA: Инструмент для работы с базами данных и объектно-реляционного отображения (ORM).
+- AspectJ: Фреймворк для аспектно-ориентированного программирования (AOP), используется для реализации ведения аудита действий.
+- REST API: Используется для создания веб-сервиса, который предоставляет доступ к данным через простые HTTP-запросы.
+- JSON: Формат обмена данными, используется для передачи информации между клиентом и сервером.
 
 
+## Функциональность
 
+- Реализация REST API для создания пользователей
+- Реализация обработчиков (GET, POST, PUT, DELETE) для перенаправления запросов на https://jsonplaceholder.typicode.com/ для различных ресурсов: /api/posts/**, /api/users/**, /api/albums/**
+- Реализация базовой авторизации (GET, POST, PUT, DELETE) с несколькими аккаунтами, каждый из которых имеет свою роль /api/security/**
+- Проработка ролевой модели доступа с ролями: ADMIN, POSTS, USERS, ALBUMS, SECURITY, VIEWER, EDITOR
+- Ведение аудита действий с записью даты-времени, пользователя, имеющего доступ, параметров запроса и т.д.
+- Использование in-memory кэша для сокращения числа запросов к jsonplaceholder (используется при /api/users/**)
+- Использование базы данных PostgreSQL для хранения данных пользователей и ведения аудита (Spring Data JPA)
+- Простота запуска приложения с использованием Maven
 
 # Контроллер ProxyController
 
