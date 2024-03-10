@@ -14,7 +14,7 @@
 12) [Сервис PostService](#интерфейс-PostService)
 13) [Сервис SecurityService](#интерфейс-SecurityService)
 14) [Сервис UserService](#интерфейс-UserService)
-15) [фаил application.properties](#application.properties)
+15) [Фаил application.properties](#application-properties)
 
 
 
