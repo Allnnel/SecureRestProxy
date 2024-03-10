@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.controller.cache.UserCache;
 import org.example.exception.CustomException;
 import org.example.model.Album;
 import org.example.model.Post;
@@ -13,14 +14,9 @@ import org.example.service.PostService;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import static java.lang.System.out;
 
@@ -32,6 +28,7 @@ public class ProxyController {
   private final PostService postService;
   private final AlbumService albumService;
   private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
+  private final UserCache userCache;
 
   @Autowired
   public ProxyController(
@@ -39,6 +36,7 @@ public class ProxyController {
     this.userService = userService;
     this.postService = postService;
     this.albumService = albumService;
+    this.userCache = new UserCache();
   }
 
   @GetMapping("users")
@@ -86,10 +84,20 @@ public class ProxyController {
   @PostMapping("users")
   public ResponseEntity<ResponseMessage> postUsers(@RequestBody User user) throws CustomException {
     try {
+
+      if (userCache.containsUser(user.getUsername())) {
+        ResponseMessage response = new ResponseMessage("Fail", "USER_ALREADY_EXISTS", "500");
+        return ResponseEntity.ok().body(response);
+      }
+
       String url = BASE_URL + "users/";
+
       ResponseEntity<User> responseEntity = restTemplate.postForEntity(url, user, User.class);
       User createdUser = responseEntity.getBody();
+
       userService.save(createdUser);
+      userCache.addToCache(createdUser);
+
       ResponseMessage response =
           new UserResponseMessage("Success", null, "200", new User[] {createdUser}, null);
       return ResponseEntity.ok().body(response);
@@ -130,11 +138,21 @@ public class ProxyController {
   }
 
   @DeleteMapping("users")
-  public ResponseEntity<ResponseMessage> deleteById(@RequestParam Long id) throws CustomException {
+  public ResponseEntity<ResponseMessage> deleteById(@RequestParam String username) throws CustomException {
     try {
-      String url = BASE_URL + "users/" + id;
+      if (!userCache.containsUser(username)) {
+        ResponseMessage response = new ResponseMessage("Fail", "USER_NOT_FOUND", "500");
+        return ResponseEntity.ok().body(response);
+      }
+
+      String url = BASE_URL + "users/" + username;
       restTemplate.delete(url);
-      userService.deleteById(id);
+      userService.deleteByUsername(username);
+      userCache.removeFromCache(username);
+      try {
+        postService.deleteByUserId(userService.findByUsername(username).getId());
+        albumService.deleteByUserId(userService.findByUsername(username).getId());
+      } catch (CustomException e) {}
       return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
     } catch (HttpStatusCodeException e) {
       throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -165,9 +183,4 @@ public class ProxyController {
     }
   }
 
-  @MessageMapping("/echo")
-  @SendTo("/topic/messages")
-  public String echoMessage(String message) {
-    return "Echo: " + message;
-  }
 }

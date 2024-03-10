@@ -1,5 +1,6 @@
 package org.example.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 import org.example.exception.CustomException;
 import org.example.model.Album;
@@ -40,5 +41,22 @@ public class AlbumServiceImpl implements AlbumService {
       throw new CustomException("ALBUM_NOT_FOUND", 1);
     }
     return album.get();
+  }
+
+  @Override
+  public List<Album> findByUserId(Long userId) throws CustomException {
+    List<Album> album = repository.findByUserId(userId);
+    if (album.isEmpty()) {
+      throw new CustomException("ALBUM_NOT_FOUND", 1);
+    }
+    return album;
+  }
+
+  @Override
+  public void deleteByUserId(Long userId) throws CustomException {
+    List<Album> albums = findByUserId(userId);
+    for (Album album : albums) {
+      repository.delete(album);
+    }
   }
 }

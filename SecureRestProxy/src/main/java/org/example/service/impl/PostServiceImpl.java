@@ -1,5 +1,6 @@
 package org.example.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 import org.example.exception.CustomException;
 import org.example.model.Post;
@@ -39,5 +40,21 @@ public class PostServiceImpl implements PostService {
       throw new CustomException("POST_NOT_FOUND", 1);
     }
     return post.get();
+  }
+  @Override
+  public void deleteByUserId(Long userId) throws CustomException {
+    List<Post> posts = findByUserId(userId);
+    for (Post post : posts) {
+      repository.delete(post);
+    }
+  }
+
+  @Override
+  public List<Post> findByUserId (Long userId) throws CustomException {
+    List<Post> posts = repository.findByUserId(userId);
+    if (posts.isEmpty()) {
+      throw new CustomException("POST_NOT_FOUND", 1);
+    }
+    return posts;
   }
 }

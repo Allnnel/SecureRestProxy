@@ -4,6 +4,8 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity
 @Getter
 @Setter
@@ -36,13 +38,7 @@ public class User {
   public User() {}
 
   public User(
-      String name,
-      String username,
-      String email,
-      Address address,
-      String phone,
-      String website,
-      Company company) {
+      String name, String username, String email, Address address, String phone, String website, Company company) {
     this.name = name;
     this.username = username;
     this.email = email;
@@ -50,6 +46,26 @@ public class User {
     this.phone = phone;
     this.website = website;
     this.company = company;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    User user = (User) o;
+    return Objects.equals(name, user.name)
+            && Objects.equals(username, user.username)
+            && Objects.equals(email, user.email)
+            && Objects.equals(address, user.address)
+            && Objects.equals(phone, user.phone)
+            && Objects.equals(website, user.website)
+            && Objects.equals(company, user.company);
+  }
+
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, username, email, address, phone, website, company);
   }
 
   @Getter
