@@ -12,6 +12,9 @@
 10) [Интерфейс AlbumService](#интерфейс-albumservice)
 11) [Интерфейс AuditLogService](#интерфейс-AuditLogService)
 12) [Интерфейс PostService](#интерфейс-PostService)
+13) [Интерфейс SecurityService](#интерфейс-SecurityService)
+14) [Интерфейс UserService](#интерфейс-UserService)
+
 
 
 
