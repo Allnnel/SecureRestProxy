@@ -9,9 +9,10 @@
 7) [Репозитории Spring Data JPA](#репозитории-spring-data-jpa)
 8) [Классы для JSON сериализации](#классы-для-json-сериализации)
 9) [Сервисы](#сервисы)
-9.1) [Интерфейс AlbumService](#интерфейс-albumservice)
-9.2) [Интерфейс AuditLogService](#интерфейс-AuditLogService)
-9.3) [Интерфейс PostService](#интерфейс-PostService)
+10) [Интерфейс AlbumService](#интерфейс-albumservice)
+11) [Интерфейс AuditLogService](#интерфейс-AuditLogService)
+12) [Интерфейс PostService](#интерфейс-PostService)
+
 
 
 
