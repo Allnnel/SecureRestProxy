@@ -15,6 +15,7 @@
 13) [Сервис SecurityService](#интерфейс-SecurityService)
 14) [Сервис UserService](#интерфейс-UserService)
 15) [Фаил application.properties](#properties)
+16) [Сборка Mavem](#maven)
 
 
 
@@ -485,3 +486,39 @@ Spring Data JPA предоставляет мощный механизм для 
 | admin.login=                                   | Логин пользователя для входа в систему                                |
 | admin.password=                                | Пароль пользователя для входа в систему                             |
 | admin.role=                                    | Роль для входа в систему (например, ADMIN)              |
+
+
+# Maven 
+
+Этот проект представляет собой веб-приложение, разработанное с использованием Spring Boot, для управления доступом и аутентификации пользователей. Он поддерживает взаимодействие с базой данных PostgreSQL и обеспечивает безопасность с помощью Spring Security. В проекте также используются различные инструменты для работы с данными JSON, XML и другими средствами.
+
+### Описание проекта с помощью Maven POM
+
+#### Основная информация:
+- **Группа**: org.example
+- **Артефакт**: controlService
+- **Версия**: 1.0-SNAPSHOT
+
+#### Зависимости проекта:
+1. **Spring Boot Starter Data JPA**: Предоставляет инструменты для работы с JPA (Java Persistence API) в приложениях Spring Boot.
+2. **Spring Boot Starter Web**: Включает все необходимые зависимости для создания веб-приложений с использованием Spring Boot.
+3. **Spring Boot Starter Websocket**: Предоставляет поддержку Websocket для веб-приложений Spring Boot.
+4. **Spring Boot Starter Security**: Включает инструменты для добавления аутентификации и авторизации в приложения Spring Boot.
+5. **Jackson Databind**: Позволяет преобразовывать Java-объекты в формат JSON и обратно.
+6. **JAXB API**: Предоставляет инструменты для работы с XML-данными в Java.
+7. **PostgreSQL Driver**: Драйвер для подключения к базе данных PostgreSQL.
+8. **Lombok**: Библиотека, которая уменьшает шаблонный код Java путем автоматической генерации методов, геттеров и сеттеров.
+
+#### Свойства проекта:
+- **java.version**: 17
+- **spring-boot.version**: 2.6.4
+- **spring.version**: 5.3.15
+- **hibernate.version**: 5.6.0.Final
+- **jakarta.persistence.version**: 3.1.0
+- **postgresql.version**: 42.2.24
+
+#### Сборка проекта:
+- **Maven Compiler Plugin**: Плагин Maven, который компилирует исходный код проекта. Настроен для использования версии Java 17.
+- **Spring Boot Maven Plugin**: Плагин Spring Boot для упаковки приложения в исполняемый JAR-файл. Задан главный класс - org.example.AccessControlServiceApplication.
+
+
