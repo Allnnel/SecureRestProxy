@@ -15,7 +15,7 @@
 13) [Сервис SecurityService](#интерфейс-SecurityService)
 14) [Сервис UserService](#интерфейс-UserService)
 15) [Фаил application.properties](#properties)
-16) [Сборка Mavem](#maven)
+16) [Сборка Maven](#maven)
 
 
 
