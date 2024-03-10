@@ -1,6 +1,8 @@
 # Проект: "SecureRestProxy"
 
 1) [ProxyController](#контроллер-proxycontroller)
+2) [UserCache](#класс-usercache)
+
 
 # Контроллер ProxyController
 
@@ -67,6 +69,7 @@
 - Описание: Удаляет альбом по его идентификатору.
 - Входные данные: Идентификатор альбома.
 - Обработка ошибок: Обрабатывает возможные ошибки HTTP.
+
 
 # Класс UserCache
 
