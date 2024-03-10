@@ -14,7 +14,7 @@
 12) [Сервис PostService](#интерфейс-PostService)
 13) [Сервис SecurityService](#интерфейс-SecurityService)
 14) [Сервис UserService](#интерфейс-UserService)
-15) [Фаил application.properties](#application-properties)
+15) [Фаил application.properties](#properties)
 
 
 
@@ -471,7 +471,7 @@ Spring Data JPA предоставляет мощный механизм для 
 
 Интерфейс `UserService` имеет реализацию в классе `UserServiceImpl`. Этот класс предоставляет конкретную реализацию методов интерфейса `UserService`, включая поиск, сохранение и удаление пользователей в базе данных. Класс `UserServiceImpl` использует `UserRepository` для взаимодействия с базой данных. Он обеспечивает проверку существования пользователей и обработку исключений при работе с ними.
 
-# application.properties
+# properties
 
 ## Настройки для подключения к базе данных PostgreSQL
 spring.datasource.type= # Тип источника данных (например, com.zaxxer.hikari.HikariDataSource)
