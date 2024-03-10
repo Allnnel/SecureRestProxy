@@ -39,8 +39,8 @@ public class SecurityController {
   }
 
   @DeleteMapping("security")
-  public ResponseEntity<ResponseMessage> deleteSecurity(
-      @RequestParam String login) throws CustomException {
+  public ResponseEntity<ResponseMessage> deleteSecurity(@RequestParam String login)
+      throws CustomException {
     service.delete(login);
     ResponseMessage response = new ResponseMessage("Successes", null, "200");
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

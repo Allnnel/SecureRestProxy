@@ -68,28 +68,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/api/posts/**").hasAnyRole("POSTS", "EDITOR", "ADMIN")
-            .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("USERS", "EDITOR", "ADMIN")
-            .antMatchers(HttpMethod.GET, "/api/albums/**").hasAnyRole("ALBUMS", "EDITOR", "ADMIN")
-            .antMatchers(HttpMethod.GET, "/api/security/**").hasAnyRole("SECURITY", "EDITOR", "ADMIN")
-
-            .antMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole("POSTS", "VIEWER", "ADMIN")
-            .antMatchers(HttpMethod.POST, "/api/users/**").hasAnyRole("USERS", "VIEWER", "ADMIN")
-            .antMatchers(HttpMethod.POST, "/api/albums/**").hasAnyRole("ALBUMS", "VIEWER", "ADMIN")
-            .antMatchers(HttpMethod.POST, "/api/security/**").hasAnyRole("SECURITY", "VIEWER", "ADMIN")
-
-            .antMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole("POSTS", "VIEWER", "ADMIN")
-            .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole("USERS", "VIEWER", "ADMIN")
-            .antMatchers(HttpMethod.DELETE, "/api/albums/**").hasAnyRole("ALBUMS", "VIEWER", "ADMIN")
-            .antMatchers(HttpMethod.DELETE, "/api/security/**").hasAnyRole("SECURITY", "VIEWER", "ADMIN")
-
-            .and()
-            .httpBasic()
-            .and()
-            .csrf()
-            .disable();
+        .antMatchers(HttpMethod.GET, "/api/posts/**")
+        .hasAnyRole("POSTS", "EDITOR", "ADMIN")
+        .antMatchers(HttpMethod.GET, "/api/users/**")
+        .hasAnyRole("USERS", "EDITOR", "ADMIN")
+        .antMatchers(HttpMethod.GET, "/api/albums/**")
+        .hasAnyRole("ALBUMS", "EDITOR", "ADMIN")
+        .antMatchers(HttpMethod.GET, "/api/security/**")
+        .hasAnyRole("SECURITY", "EDITOR", "ADMIN")
+        .antMatchers(HttpMethod.POST, "/api/posts/**")
+        .hasAnyRole("POSTS", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.POST, "/api/users/**")
+        .hasAnyRole("USERS", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.POST, "/api/albums/**")
+        .hasAnyRole("ALBUMS", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.POST, "/api/security/**")
+        .hasAnyRole("SECURITY", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/api/posts/**")
+        .hasAnyRole("POSTS", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/api/users/**")
+        .hasAnyRole("USERS", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/api/albums/**")
+        .hasAnyRole("ALBUMS", "VIEWER", "ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/api/security/**")
+        .hasAnyRole("SECURITY", "VIEWER", "ADMIN")
+        .and()
+        .httpBasic()
+        .and()
+        .csrf()
+        .disable();
   }
-
-
-
 }

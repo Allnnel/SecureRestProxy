@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import static java.lang.System.out;
-
 @RestController
 @RequestMapping("/api")
 public class ProxyController {
@@ -84,20 +82,15 @@ public class ProxyController {
   @PostMapping("users")
   public ResponseEntity<ResponseMessage> postUsers(@RequestBody User user) throws CustomException {
     try {
-
       if (userCache.containsUser(user.getUsername())) {
         ResponseMessage response = new ResponseMessage("Fail", "USER_ALREADY_EXISTS", "500");
         return ResponseEntity.ok().body(response);
       }
-
       String url = BASE_URL + "users/";
-
       ResponseEntity<User> responseEntity = restTemplate.postForEntity(url, user, User.class);
       User createdUser = responseEntity.getBody();
-
       userService.save(createdUser);
       userCache.addToCache(createdUser);
-
       ResponseMessage response =
           new UserResponseMessage("Success", null, "200", new User[] {createdUser}, null);
       return ResponseEntity.ok().body(response);
@@ -138,13 +131,13 @@ public class ProxyController {
   }
 
   @DeleteMapping("users")
-  public ResponseEntity<ResponseMessage> deleteById(@RequestParam String username) throws CustomException {
+  public ResponseEntity<ResponseMessage> deleteById(@RequestParam String username)
+      throws CustomException {
     try {
       if (!userCache.containsUser(username)) {
         ResponseMessage response = new ResponseMessage("Fail", "USER_NOT_FOUND", "500");
         return ResponseEntity.ok().body(response);
       }
-
       String url = BASE_URL + "users/" + username;
       restTemplate.delete(url);
       userService.deleteByUsername(username);
@@ -152,7 +145,8 @@ public class ProxyController {
       try {
         postService.deleteByUserId(userService.findByUsername(username).getId());
         albumService.deleteByUserId(userService.findByUsername(username).getId());
-      } catch (CustomException e) {}
+      } catch (CustomException e) {
+      }
       return ResponseEntity.ok().body(new ResponseMessage("Success", null, "200"));
     } catch (HttpStatusCodeException e) {
       throw new CustomException(e.getMessage(), e.getRawStatusCode());
@@ -182,5 +176,4 @@ public class ProxyController {
       throw new CustomException(e.getMessage(), e.getRawStatusCode());
     }
   }
-
 }

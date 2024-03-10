@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuditLogServiceImpl implements AuditLogService {
-    private final AuditLogRepository repository;
-    @Autowired
-    public AuditLogServiceImpl(AuditLogRepository repository) {
-        this.repository = repository;
-    }
-    @Override
-    public void save(AuditLog log) {
-        repository.save(log);
-    }
+  private final AuditLogRepository repository;
 
+  @Autowired
+  public AuditLogServiceImpl(AuditLogRepository repository) {
+    this.repository = repository;
+  }
+
+  @Override
+  public void save(AuditLog log) {
+    repository.save(log);
+  }
 }

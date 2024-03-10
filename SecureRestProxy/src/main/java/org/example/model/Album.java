@@ -23,5 +23,6 @@ public class Album {
     this.userId = userId;
     this.title = title;
   }
+
   public Album() {}
 }

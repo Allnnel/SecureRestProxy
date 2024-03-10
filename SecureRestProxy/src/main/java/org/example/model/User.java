@@ -1,10 +1,9 @@
 package org.example.model;
 
+import java.util.Objects;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -38,7 +37,13 @@ public class User {
   public User() {}
 
   public User(
-      String name, String username, String email, Address address, String phone, String website, Company company) {
+      String name,
+      String username,
+      String email,
+      Address address,
+      String phone,
+      String website,
+      Company company) {
     this.name = name;
     this.username = username;
     this.email = email;
@@ -54,14 +59,13 @@ public class User {
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
     return Objects.equals(name, user.name)
-            && Objects.equals(username, user.username)
-            && Objects.equals(email, user.email)
-            && Objects.equals(address, user.address)
-            && Objects.equals(phone, user.phone)
-            && Objects.equals(website, user.website)
-            && Objects.equals(company, user.company);
+        && Objects.equals(username, user.username)
+        && Objects.equals(email, user.email)
+        && Objects.equals(address, user.address)
+        && Objects.equals(phone, user.phone)
+        && Objects.equals(website, user.website)
+        && Objects.equals(company, user.company);
   }
-
 
   @Override
   public int hashCode() {

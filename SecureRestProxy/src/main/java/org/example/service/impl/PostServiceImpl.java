@@ -41,6 +41,7 @@ public class PostServiceImpl implements PostService {
     }
     return post.get();
   }
+
   @Override
   public void deleteByUserId(Long userId) throws CustomException {
     List<Post> posts = findByUserId(userId);
@@ -50,7 +51,7 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<Post> findByUserId (Long userId) throws CustomException {
+  public List<Post> findByUserId(Long userId) throws CustomException {
     List<Post> posts = repository.findByUserId(userId);
     if (posts.isEmpty()) {
       throw new CustomException("POST_NOT_FOUND", 1);
