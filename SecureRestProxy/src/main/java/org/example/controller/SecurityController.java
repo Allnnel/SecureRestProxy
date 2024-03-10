@@ -38,6 +38,15 @@ public class SecurityController {
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
+  @PutMapping("security")
+  public ResponseEntity<ResponseMessage> putSecurity(
+      @RequestParam String login, @RequestParam String role, @RequestParam String password)
+      throws CustomException {
+    service.update(new Security(role, login, password));
+    ResponseMessage response = new ResponseMessage("Successes", null, "200");
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
+
   @DeleteMapping("security")
   public ResponseEntity<ResponseMessage> deleteSecurity(@RequestParam String login)
       throws CustomException {

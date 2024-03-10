@@ -83,14 +83,32 @@ public class ProxyController {
   public ResponseEntity<ResponseMessage> postUsers(@RequestBody User user) throws CustomException {
     try {
       if (userCache.containsUser(user.getUsername())) {
-        ResponseMessage response = new ResponseMessage("Fail", "USER_ALREADY_EXISTS", "500");
-        return ResponseEntity.ok().body(response);
+        throw new CustomException("USER_ALREADY_EXISTS", 2);
       }
       String url = BASE_URL + "users/";
       ResponseEntity<User> responseEntity = restTemplate.postForEntity(url, user, User.class);
       User createdUser = responseEntity.getBody();
       userService.save(createdUser);
       userCache.addToCache(createdUser);
+      ResponseMessage response =
+          new UserResponseMessage("Success", null, "200", new User[] {createdUser}, null);
+      return ResponseEntity.ok().body(response);
+    } catch (HttpStatusCodeException e) {
+      throw new CustomException(e.getMessage(), 1);
+    }
+  }
+
+  @PutMapping("users")
+  public ResponseEntity<ResponseMessage> putUsers(@RequestBody User user) throws CustomException {
+    try {
+      String url = BASE_URL + "users/";
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
+      ResponseEntity<User> responseEntity =
+          restTemplate.exchange(url, HttpMethod.PUT, requestEntity, User.class);
+      User createdUser = responseEntity.getBody();
+      userService.update(createdUser);
       ResponseMessage response =
           new UserResponseMessage("Success", null, "200", new User[] {createdUser}, null);
       return ResponseEntity.ok().body(response);
@@ -135,8 +153,7 @@ public class ProxyController {
       throws CustomException {
     try {
       if (!userCache.containsUser(username)) {
-        ResponseMessage response = new ResponseMessage("Fail", "USER_NOT_FOUND", "500");
-        return ResponseEntity.ok().body(response);
+        throw new CustomException("USER_NOT_FOUND", 1);
       }
       String url = BASE_URL + "users/" + username;
       restTemplate.delete(url);

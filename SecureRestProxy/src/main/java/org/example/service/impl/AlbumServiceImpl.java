@@ -38,7 +38,7 @@ public class AlbumServiceImpl implements AlbumService {
   public Album findById(Long id) throws CustomException {
     Optional<Album> album = repository.findById(id);
     if (!album.isPresent()) {
-      throw new CustomException("ALBUM_NOT_FOUND", 1);
+      throw new CustomException("ALBUM_NOT_FOUND", 7);
     }
     return album.get();
   }

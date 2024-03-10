@@ -17,6 +17,8 @@ public interface SecurityService {
 
   void save(Security security) throws CustomException;
 
+  void update(Security security) throws CustomException;
+
   List<Security> findAll() throws CustomException;
 
   void delete(String login) throws CustomException;

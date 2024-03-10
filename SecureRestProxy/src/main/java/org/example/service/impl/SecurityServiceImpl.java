@@ -22,7 +22,7 @@ public class SecurityServiceImpl implements SecurityService {
   public List<Security> findAll() throws CustomException {
     List<Security> securityList = repository.findAll();
     if (securityList.isEmpty()) {
-      throw new CustomException("SECURITY_NOT_FOUND", 1);
+      throw new CustomException("SECURITY_NOT_FOUND", 3);
     }
     return securityList;
   }
@@ -31,7 +31,7 @@ public class SecurityServiceImpl implements SecurityService {
   public Security findByLogin(String login) throws CustomException {
     Optional<Security> security = repository.findByLogin(login);
     if (!security.isPresent()) {
-      throw new CustomException("SECURITY_NOT_FOUND", 1);
+      throw new CustomException("SECURITY_NOT_FOUND", 3);
     }
     return security.get();
   }
@@ -41,9 +41,23 @@ public class SecurityServiceImpl implements SecurityService {
     isValidRole(security.getRole());
     Optional<Security> securityOptional = repository.findByLogin(security.getLogin());
     if (securityOptional.isPresent()) {
-      throw new CustomException("SECURITY_ALREADY_EXISTS", 1);
+      throw new CustomException("SECURITY_ALREADY_EXISTS", 4);
     }
     repository.save(security);
+  }
+
+  @Override
+  public void update(Security security) throws CustomException {
+    Optional<Security> optionalSecurity = repository.findByLogin(security.getLogin());
+    if (optionalSecurity.isPresent()) {
+      Security updateSecurity = optionalSecurity.get();
+      updateSecurity.setLogin(security.getLogin());
+      updateSecurity.setRole(security.getRole());
+      updateSecurity.setPassword(security.getPassword());
+      repository.save(updateSecurity);
+    } else {
+      repository.save(security);
+    }
   }
 
   @Override
@@ -51,7 +65,7 @@ public class SecurityServiceImpl implements SecurityService {
     try {
       RoleEnum.valueOf(role);
     } catch (IllegalArgumentException | NullPointerException e) {
-      throw new CustomException("ROLE_NOT_FOUND", 3);
+      throw new CustomException("ROLE_NOT_FOUND", 5);
     }
   }
 

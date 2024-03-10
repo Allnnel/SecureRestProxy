@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationFailureListener
     implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
-  private AuditLogService service;
+  private final AuditLogService service;
 
   @Autowired
   public AuthenticationFailureListener(AuditLogService service) {

@@ -45,6 +45,23 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void update(User user) throws CustomException {
+    Optional<User> optionalUser = repository.findByUsername(user.getUsername());
+    if (optionalUser.isPresent()) {
+      User updateUser = optionalUser.get();
+      updateUser.setAddress(user.getAddress());
+      updateUser.setName(user.getName());
+      updateUser.setPhone(user.getPhone());
+      updateUser.setEmail(user.getEmail());
+      updateUser.setCompany(user.getCompany());
+      updateUser.setWebsite(user.getWebsite());
+      repository.save(updateUser);
+    } else {
+      repository.save(user);
+    }
+  }
+
+  @Override
   public User findByUsername(String username) throws CustomException {
     Optional<User> user = repository.findByUsername(username);
     if (!user.isPresent()) {

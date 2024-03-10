@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
   public Post findById(Long id) throws CustomException {
     Optional<Post> post = repository.findById(id);
     if (!post.isPresent()) {
-      throw new CustomException("POST_NOT_FOUND", 1);
+      throw new CustomException("POST_NOT_FOUND", 6);
     }
     return post.get();
   }
@@ -54,7 +54,7 @@ public class PostServiceImpl implements PostService {
   public List<Post> findByUserId(Long userId) throws CustomException {
     List<Post> posts = repository.findByUserId(userId);
     if (posts.isEmpty()) {
-      throw new CustomException("POST_NOT_FOUND", 1);
+      throw new CustomException("POST_NOT_FOUND", 6);
     }
     return posts;
   }

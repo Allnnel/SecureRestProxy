@@ -11,6 +11,8 @@ public interface UserService {
 
   void save(User user) throws CustomException;
 
+  void update(User user) throws CustomException;
+
   User findByUsername(String username) throws CustomException;
 
   void deleteByUsername(String username) throws CustomException;
