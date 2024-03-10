@@ -4,7 +4,7 @@
 2) [контроллер SecurityController](#контроллер-securitycontroller) 
 3) [класс UserCache](#класс-usercache)
 4) [Модели данных](#модели-данных)
-5) [Модели данных](#модели-данных)
+5) [Конфигурация безопасности SecurityConfig](#конфигурация-безопасности-securityconfig)
 
 
 # Контроллер ProxyController
@@ -221,4 +221,45 @@
 - `login`: Логин пользователя.
 - `password`: Пароль пользователя.
 
+# Конфигурация безопасности SecurityConfig
+
+Класс `SecurityConfig` отвечает за настройку безопасности веб-приложения с использованием Spring Security.
+
+## Роли и права доступа
+
+| Роль      | Права доступа                                   |
+|-----------|------------------------------------------------|
+| ADMIN     | Полные права на все ресурсы                    |
+| EDITOR    | Права на редактирование                         |
+| VIEWER    | Ограниченные права на чтение                   |
+| USERS     | Доступ к управлению пользователями              |
+| POSTS     | Доступ к управлению постами                     |
+| ALBUMS    | Доступ к управлению альбомами                   |
+| SECURITY  | Доступ к управлению безопасностью                |
+
+## Механизмы аутентификации
+
+- Базовая аутентификация HTTP используется для проверки подлинности пользователей при каждом запросе.
+- Пароли пользователей хранятся в зашифрованном виде с использованием `BCryptPasswordEncoder`.
+
+## HTTP Методы и Права доступа
+
+Для каждого HTTP метода и конечной точки (`/api/posts/**`, `/api/users/**`, `/api/albums/**`, `/api/security/**`), определены различные права доступа в зависимости от роли пользователя.
+
+| Метод     | Ресурс               | Права доступа                     |
+|-----------|----------------------|----------------------------------|
+| GET       | /api/posts/**       | POSTS, EDITOR, ADMIN             |
+| GET       | /api/users/**       | USERS, EDITOR, ADMIN             |
+| GET       | /api/albums/**      | ALBUMS, EDITOR, ADMIN            |
+| GET       | /api/security/**    | SECURITY, EDITOR, ADMIN          |
+| POST      | /api/posts/**       | POSTS, VIEWER, ADMIN             |
+| POST      | /api/users/**       | USERS, VIEWER, ADMIN             |
+| POST      | /api/albums/**      | ALBUMS, VIEWER, ADMIN            |
+| POST      | /api/security/**    | SECURITY, VIEWER, ADMIN          |
+| DELETE    | /api/posts/**       | POSTS, VIEWER, ADMIN             |
+| DELETE    | /api/users/**       | USERS, VIEWER, ADMIN             |
+| DELETE    | /api/albums/**      | ALBUMS, VIEWER, ADMIN            |
+| DELETE    | /api/security/**    | SECURITY, VIEWER, ADMIN          |
+
+Класс `SecurityConfig` определяет, как пользователи веб-приложения будут аутентифицироваться и авторизовываться, а также какие права доступа предоставляются каждой роли.
 
