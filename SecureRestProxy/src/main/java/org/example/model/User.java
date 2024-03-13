@@ -69,7 +69,7 @@ public class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, username, email, address, phone, website, company);
+    return Objects.hash(username);
   }
 
   @Getter
